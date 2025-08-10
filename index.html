@@ -5,45 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Confirmação de Presença</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       background: linear-gradient(135deg, #6a11cb, #2575fc);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
       padding: 20px;
     }
     .container {
       background: rgba(255, 255, 255, 0.1);
-      padding: 30px 40px;
+      padding: 40px 30px 30px 30px;
       border-radius: 15px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       max-width: 400px;
       width: 100%;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .evento {
+      font-family: 'Georgia', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #ffdb58; /* amarelo dourado */
+      letter-spacing: 3px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
     }
     h1 {
-      margin: 0 0 5px 0;
+      margin: 0 0 10px 0;
       font-size: 2.5rem;
       letter-spacing: 1.5px;
+      font-weight: 700;
     }
     h2 {
       font-weight: 400;
       font-size: 1rem;
-      margin: 0 0 25px 0;
+      margin: 0 0 30px 0;
       color: #d3d3d3;
     }
     input[type="text"] {
       width: 100%;
-      padding: 12px 15px;
+      padding: 14px 15px;
       font-size: 1rem;
       border: none;
       border-radius: 8px;
       outline: none;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
       transition: box-shadow 0.3s ease;
     }
@@ -52,7 +68,7 @@
     }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       font-size: 1.1rem;
       background: #4CAF50;
       border: none;
@@ -68,16 +84,20 @@
       box-shadow: 0 7px 20px rgba(69, 160, 73, 0.8);
     }
     .status {
-      margin-top: 18px;
+      margin-top: 20px;
       font-size: 1rem;
       min-height: 24px;
       color: #e0e0e0;
       font-style: italic;
+      text-align: center;
+      user-select: none;
+      height: 28px;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="evento">XV HELENA</div>
     <h1>🎉 Confirmar Presença 🎉</h1>
     <h2>Se estiver mais pessoas, envie os nomes separados</h2>
     <input type="text" id="nome" placeholder="Digite seu nome" autocomplete="off" />
