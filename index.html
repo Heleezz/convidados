@@ -1,15 +1,61 @@
-function confirmarPresenca() {
-  const nome = document.getElementById('nome').value;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação de Presença</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fce4ec;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #ec407a;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #d81b60;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Confirme sua presença</h1>
+  <input type="text" id="nome" placeholder="Digite seu nome completo">
+  <br>
+  <button onclick="confirmarPresenca()">Confirmar</button>
+  <p id="mensagem"></p>
 
-  fetch('URL_DO_SEU_WEBAPP', {
-    method: 'POST',
-    body: JSON.stringify({ nome: nome })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert(data.message);
-  })
-  .catch(err => {
-    alert('Erro ao confirmar presença.');
-  });
-}
+  <script>
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwXe5FqLBGQ44Wgxpq4yxIFlcmKClQVVSvBa9KdUdwrlT72Fk97JgKbimdRStjbasdy/exec';
+
+    function confirmarPresenca() {
+      const nome = document.getElementById('nome').value.trim();
+      if (!nome) {
+        document.getElementById('mensagem').innerText = "⚠️ Digite seu nome.";
+        return;
+      }
+
+      fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({ nome: nome })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('mensagem').innerText = data.message;
+      })
+      .catch(err => {
+        document.getElementById('mensagem').innerText = "❌ Erro ao enviar.";
+      });
+    }
+  </script>
+</body>
+</html>
