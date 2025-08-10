@@ -19,6 +19,8 @@
       align-items: center;
       padding: 20px;
       transition: background 0.8s ease;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     .container {
       background: rgba(0, 0, 0, 0.5);
@@ -98,6 +100,67 @@
       user-select: none;
       height: 28px;
     }
+
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-content {
+      background: #222;
+      border-radius: 15px;
+      max-width: 350px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 15px #d4af37;
+      position: relative;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .modal-content img {
+      max-width: 150px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #d4af37;
+    }
+    .modal-content p {
+      font-size: 1rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .modal-content button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #d4af37;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #222;
+      font-weight: 700;
+      box-shadow: 0 0 8px #ffd700;
+      transition: background 0.3s ease;
+    }
+    .modal-content button:hover {
+      background: #ffdb58;
+      box-shadow: 0 0 12px #ffd700;
+    }
   </style>
 </head>
 <body>
@@ -110,8 +173,22 @@
     <p class="status" id="status"></p>
   </div>
 
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/95/Homem-Aranha_Logo.svg/1200px-Homem-Aranha_Logo.svg.png" alt="Homem-Aranha" />
+      <p>
+        Que legal que vai dormir aqui! 🛏️<br />
+        Não esqueça de trazer:<br />
+        - Roupa de piscina 🩱<br />
+        - Roupa de dormir confortável 😴<br /><br />
+        Vamos garantir que todos tenham uma ótima festa e uma boa noite de sono!
+      </p>
+      <button onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
   <script>
-    // Lista dos nomes que devem disparar o efeito (todos em lowercase)
     const nomesDorminhocos = [
       "sarah",
       "bianca",
@@ -153,27 +230,24 @@
       let nomeMinusculo = nome.toLowerCase();
 
       if (nomesDorminhocos.includes(nomeMinusculo)) {
-        // Ativa fundo dourado, texto cinza e mensagem especial
         document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
         container.style.background = 'rgba(255, 223, 0, 0.2)';
         evento.style.color = '#666666';
 
-        setTimeout(() => {
-          alert(
-            "Que legal que vai dormir aqui! 🛏️\n\n" +
-            "Não esqueça de trazer:\n" +
-            "- Roupa de piscina 🩱\n" +
-            "- Roupa de dormir confortável 😴\n\n" +
-            "Vamos garantir que todos tenham uma ótima festa e uma boa noite de sono!"
-          );
-        }, 300);
-
+        abrirModal();
       } else {
-        // Volta ao padrão se nome não estiver na lista
         document.body.style.background = 'linear-gradient(135deg, #888888, #cccccc)';
         container.style.background = 'rgba(0, 0, 0, 0.5)';
         evento.style.color = '#ffdb58';
       }
+    }
+
+    function abrirModal() {
+      document.getElementById("modal").classList.add("show");
+    }
+
+    function fecharModal() {
+      document.getElementById("modal").classList.remove("show");
     }
   </script>
 </body>
