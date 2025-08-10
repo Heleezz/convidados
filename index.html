@@ -18,7 +18,7 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      transition: background 0.8s ease;
+      transition: background 1.2s ease; /* transição mais suave e lenta */
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -33,7 +33,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: background 0.8s ease;
+      transition: background 1.2s ease; /* transição mais suave e lenta */
     }
     .evento {
       font-family: 'Georgia', serif;
@@ -43,7 +43,7 @@
       color: #ffdb58; /* amarelo dourado */
       letter-spacing: 3px;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
-      transition: color 0.8s ease;
+      transition: color 1.2s ease;
     }
     h1 {
       margin: 0 0 10px 0;
@@ -134,11 +134,12 @@
       position: relative;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .modal-content img {
-      max-width: 150px;
+    .modal-content h3 {
+      font-size: 1.6rem;
       margin-bottom: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #d4af37;
+      font-weight: 700;
+      color: #ffd700;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
     }
     .modal-content p {
       font-size: 1rem;
@@ -176,8 +177,8 @@
   <!-- Modal -->
   <div class="modal" id="modal">
     <div class="modal-content">
+      <h3>Você é um convidado especial</h3>
       <p>
-        Você é um convidado especial<br />
         Venha passar a noite! 🛏️<br />
         Não esqueça de trazer:<br />
         - Roupa de piscina 🩱<br />
@@ -230,11 +231,13 @@
       let nomeMinusculo = nome.toLowerCase();
 
       if (nomesDorminhocos.includes(nomeMinusculo)) {
-        document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
-        container.style.background = 'rgba(255, 223, 0, 0.2)';
-        evento.style.color = '#666666';
-
-        abrirModal();
+        // delay para efeito perceptível da transição
+        setTimeout(() => {
+          document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
+          container.style.background = 'rgba(255, 223, 0, 0.2)';
+          evento.style.color = '#666666';
+          abrirModal();
+        }, 300);  // 300ms de delay
       } else {
         document.body.style.background = 'linear-gradient(135deg, #888888, #cccccc)';
         container.style.background = 'rgba(0, 0, 0, 0.5)';
