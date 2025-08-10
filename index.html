@@ -25,6 +25,16 @@
     button:hover {
       background: #d81b60;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      margin: 5px;
+      padding: 8px;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -34,8 +44,11 @@
   <button onclick="confirmarPresenca()">Confirmar</button>
   <p id="mensagem"></p>
 
+  <h2>✅ Confirmados</h2>
+  <ul id="listaConfirmados"></ul>
+
   <script>
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwXe5FqLBGQ44Wgxpq4yxIFlcmKClQVVSvBa9KdUdwrlT72Fk97JgKbimdRStjbasdy/exec';
+    const WEB_APP_URL = 'COLE_SEU_LINK_AQUI';
 
     function confirmarPresenca() {
       const nome = document.getElementById('nome').value.trim();
@@ -51,11 +64,36 @@
       .then(res => res.json())
       .then(data => {
         document.getElementById('mensagem').innerText = data.message;
+        if (data.success) {
+          carregarConfirmados(); // atualiza lista
+        }
       })
       .catch(err => {
         document.getElementById('mensagem').innerText = "❌ Erro ao enviar.";
       });
     }
+
+    function carregarConfirmados() {
+      fetch(WEB_APP_URL)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            const lista = document.getElementById('listaConfirmados');
+            lista.innerHTML = '';
+            data.nomes.forEach(nome => {
+              const li = document.createElement('li');
+              li.innerText = nome;
+              lista.appendChild(li);
+            });
+          }
+        })
+        .catch(err => {
+          console.error('Erro ao carregar lista:', err);
+        });
+    }
+
+    // Carrega a lista automaticamente ao abrir
+    carregarConfirmados();
   </script>
 </body>
 </html>
