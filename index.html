@@ -49,3 +49,132 @@
       letter-spacing: 1.5px;
       font-weight: 700;
     }
+    h2 {
+      font-weight: 400;
+      font-size: 1rem;
+      margin: 0 0 30px 0;
+      color: #d3d3d3;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 15px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 25px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      transition: box-shadow 0.3s ease;
+      color: #000;
+      background-color: #f0f0f0;
+    }
+    input[type="text"]:focus {
+      box-shadow: inset 0 0 8px #444;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      background: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.6);
+    }
+    button:hover {
+      background: #45a049;
+      box-shadow: 0 7px 20px rgba(69, 160, 73, 0.8);
+    }
+    .status {
+      margin-top: 20px;
+      font-size: 1rem;
+      min-height: 24px;
+      color: #e0e0e0;
+      font-style: italic;
+      text-align: center;
+      user-select: none;
+      height: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="evento" id="evento">XV HELENA</div>
+    <h1>🎉 Confirmar Presença 🎉</h1>
+    <h2>Se estiver mais pessoas, envie os nomes separados</h2>
+    <input type="text" id="nome" placeholder="Digite seu nome" autocomplete="off" />
+    <button onclick="enviar()">Confirmar</button>
+    <p class="status" id="status"></p>
+  </div>
+
+  <script>
+    // Lista dos nomes que devem disparar o efeito (todos em lowercase)
+    const nomesDorminhocos = [
+      "sarah",
+      "bianca",
+      "gabriela",
+      "capita",
+      "victoria",
+      "maria fernanda",
+      "nanda",
+      "maria eduarda",
+      "diogenes",
+      "pedro",
+      "ana",
+      "ana beatrice",
+      "ana luiza",
+      "laura",
+      "suprema"
+    ];
+
+    function enviar() {
+      let nome = document.getElementById("nome").value.trim();
+      let status = document.getElementById("status");
+      let container = document.getElementById("container");
+      let evento = document.getElementById("evento");
+
+      if (!nome) {
+        status.innerText = "Digite um nome.";
+        return;
+      }
+
+      fetch("https://script.google.com/macros/s/AKfycbzSLa5V1wFBO4Hf-1MCa4AdjGF2s8bdjnYm33mwT6-TUk3PiygsPD7qMrABsQw13_D3TQ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({ nome: nome })
+      });
+
+      status.innerText = "Presença confirmada!";
+      document.getElementById("nome").value = "";
+
+      let nomeMinusculo = nome.toLowerCase();
+
+      if (nomesDorminhocos.includes(nomeMinusculo)) {
+        // Ativa fundo dourado, texto cinza e mensagem especial
+        document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
+        container.style.background = 'rgba(255, 223, 0, 0.2)';
+        evento.style.color = '#666666';
+
+        setTimeout(() => {
+          alert(
+            "Que legal que vai dormir aqui! 🛏️\n\n" +
+            "Não esqueça de trazer:\n" +
+            "- Roupa de piscina 🩱\n" +
+            "- Roupa de dormir confortável 😴\n\n" +
+            "Vamos garantir que todos tenham uma ótima festa e uma boa noite de sono!"
+          );
+        }, 300);
+
+      } else {
+        // Volta ao padrão se nome não estiver na lista
+        document.body.style.background = 'linear-gradient(135deg, #888888, #cccccc)';
+        container.style.background = 'rgba(0, 0, 0, 0.5)';
+        evento.style.color = '#ffdb58';
+      }
+    }
+  </script>
+</body>
+</html>
