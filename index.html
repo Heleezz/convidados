@@ -1,0 +1,15 @@
+function confirmarPresenca() {
+  const nome = document.getElementById('nome').value;
+
+  fetch('URL_DO_SEU_WEBAPP', {
+    method: 'POST',
+    body: JSON.stringify({ nome: nome })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message);
+  })
+  .catch(err => {
+    alert('Erro ao confirmar presença.');
+  });
+}
