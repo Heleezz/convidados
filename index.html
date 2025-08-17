@@ -248,7 +248,7 @@ function fecharModal() {
 
 // nova função para registrar se vai dormir ou não
 function confirmarDormir(vaiDormir) {
-  fetch("SUA_URL_DO_WEBAPP", {
+  fetch("https://script.google.com/macros/s/AKfycbyOP4N2kEgeVzRy6PjvhoV3u5HrJyBGpfcKX4lCHvrpzA8bbn-BZIztPZi3Hn44P1i-Sw/exec
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify({ nome: ultimoNome, dormir: vaiDormir ? "sim" : "nao" })
