@@ -1,258 +1,82 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Confirmação de Presença</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      background: linear-gradient(135deg, #888888, #cccccc);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: background 1.2s ease; /* transição mais suave e lenta */
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    .container {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 40px 30px 30px 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: background 1.2s ease; /* transição mais suave e lenta */
-    }
-    .evento {
-      font-family: 'Georgia', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #ffdb58; /* amarelo dourado */
-      letter-spacing: 3px;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
-      transition: color 1.2s ease;
-    }
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 2.5rem;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-    }
-    h2 {
-      font-weight: 400;
-      font-size: 1rem;
-      margin: 0 0 30px 0;
-      color: #d3d3d3;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 14px 15px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      outline: none;
-      margin-bottom: 25px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      transition: box-shadow 0.3s ease;
-      color: #000;
-      background-color: #f0f0f0;
-    }
-    input[type="text"]:focus {
-      box-shadow: inset 0 0 8px #444;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      font-size: 1.1rem;
-      background: #4CAF50;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.6);
-    }
-    button:hover {
-      background: #45a049;
-      box-shadow: 0 7px 20px rgba(69, 160, 73, 0.8);
-    }
-    .status {
-      margin-top: 20px;
-      font-size: 1rem;
-      min-height: 24px;
-      color: #e0e0e0;
-      font-style: italic;
-      text-align: center;
-      user-select: none;
-      height: 28px;
-    }
-
-    /* Modal styles */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.75);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .modal.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    .modal-content {
-      background: #222;
-      border-radius: 15px;
-      max-width: 350px;
-      width: 100%;
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-      box-shadow: 0 0 15px #d4af37;
-      position: relative;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .modal-content h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-      color: #ffd700;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    }
-    .modal-content p {
-      font-size: 1rem;
-      line-height: 1.4;
-      margin-bottom: 20px;
-    }
-    .modal-content button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      background: #d4af37;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      color: #222;
-      font-weight: 700;
-      box-shadow: 0 0 8px #ffd700;
-      transition: background 0.3s ease;
-    }
-    .modal-content button:hover {
-      background: #ffdb58;
-      box-shadow: 0 0 12px #ffd700;
-    }
-  </style>
-</head>
-<body>
-  <div class="container" id="container">
-    <div class="evento" id="evento">XV HELENA</div>
-    <h1>🎉 Confirmar Presença 🎉</h1>
-    <h2>Se tiver mais pessoas, envie os nomes separados</h2>
-    <input type="text" id="nome" placeholder="Digite seu nome" autocomplete="off" />
-    <button onclick="enviar()">Confirmar</button>
-    <p class="status" id="status"></p>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <h3>Você é um convidado especial</h3>
-      <p>
-        Venha passar a noite! 🛏️<br />
-        HORARIO: 14h do dia 29/11 até as 15h do dia 30/11
-        Não esqueça de trazer:<br />
-        - Roupa de piscina 🩱<br />
-        - Roupa de dormir confortável 😴<br /><br />
-        Conto com a sua presença!
-      </p>
-      <button onclick="fecharModal()">Fechar</button>
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Você é um convidado especial</h3>
+    <p>
+      Venha passar a noite! 🛏️<br />
+      HORARIO: 14h do dia 29/11 até as 15h do dia 30/11<br /><br />
+      Não esqueça de trazer:<br />
+      - Roupa de piscina 🩱<br />
+      - Roupa de dormir confortável 😴<br /><br />
+      Confirma que vai dormir aqui?
+    </p>
+    <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
+      <button onclick="confirmarDormir(true)">Sim 😴</button>
+      <button onclick="confirmarDormir(false)">Não 👍</button>
     </div>
+    <button onclick="fecharModal()">Fechar</button>
   </div>
+</div>
 
-  <script>
-    const nomesDorminhocos = [
-      "sarah",
-      "bianca",
-      "gabriela",
-      "capita",
-      "victoria",
-      "maria fernanda",
-      "nanda",
-      "maria eduarda",
-      "diogenes",
-      "pedro",
-      "ana",
-      "ana beatrice",
-      "ana luiza",
-      "laura",
-      "suprema"
-    ];
+<script>
+  let ultimoNome = ""; // guarda o nome digitado
 
-    function enviar() {
-      let nome = document.getElementById("nome").value.trim();
-      let status = document.getElementById("status");
-      let container = document.getElementById("container");
-      let evento = document.getElementById("evento");
+  function enviar() {
+    let nome = document.getElementById("nome").value.trim();
+    let status = document.getElementById("status");
+    let container = document.getElementById("container");
+    let evento = document.getElementById("evento");
 
-      if (!nome) {
-        status.innerText = "Digite um nome.";
-        return;
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbzSLa5V1wFBO4Hf-1MCa4AdjGF2s8bdjnYm33mwT6-TUk3PiygsPD7qMrABsQw13_D3TQ/exec", {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify({ nome: nome })
-      });
-
-      status.innerText = "Presença confirmada!";
-      document.getElementById("nome").value = "";
-
-      let nomeMinusculo = nome.toLowerCase();
-
-      if (nomesDorminhocos.includes(nomeMinusculo)) {
-        // delay para efeito perceptível da transição
-        setTimeout(() => {
-          document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
-          container.style.background = 'rgba(255, 223, 0, 0.2)';
-          evento.style.color = '#666666';
-          abrirModal();
-        }, 300);  // 300ms de delay
-      } else {
-        document.body.style.background = 'linear-gradient(135deg, #888888, #cccccc)';
-        container.style.background = 'rgba(0, 0, 0, 0.5)';
-        evento.style.color = '#ffdb58';
-      }
+    if (!nome) {
+      status.innerText = "Digite um nome.";
+      return;
     }
 
-    function abrirModal() {
-      document.getElementById("modal").classList.add("show");
-    }
+    // guarda o nome para usar depois no modal
+    ultimoNome = nome;
 
-    function fecharModal() {
-      document.getElementById("modal").classList.remove("show");
+    fetch("https://script.google.com/macros/s/AKfycbzSLa5V1wFBO4Hf-1MCa4AdjGF2s8bdjnYm33mwT6-TUk3PiygsPD7qMrABsQw13_D3TQ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({ nome: nome, dormir: "não informado" })
+    });
+
+    status.innerText = "Presença confirmada!";
+    document.getElementById("nome").value = "";
+
+    let nomeMinusculo = nome.toLowerCase();
+
+    if (nomesDorminhocos.includes(nomeMinusculo)) {
+      setTimeout(() => {
+        document.body.style.background = 'linear-gradient(135deg, #d4af37, #ffd700)';
+        container.style.background = 'rgba(255, 223, 0, 0.2)';
+        evento.style.color = '#666666';
+        abrirModal();
+      }, 300);
+    } else {
+      document.body.style.background = 'linear-gradient(135deg, #888888, #cccccc)';
+      container.style.background = 'rgba(0, 0, 0, 0.5)';
+      evento.style.color = '#ffdb58';
     }
-  </script>
-</body>
-</html>
+  }
+
+  function confirmarDormir(vaiDormir) {
+    // envia novamente a informação com status de dormir
+    fetch("https://script.google.com/macros/s/AKfycbzSLa5V1wFBO4Hf-1MCa4AdjGF2s8bdjnYm33mwT6-TUk3PiygsPD7qMrABsQw13_D3TQ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({ nome: ultimoNome, dormir: vaiDormir ? "sim" : "nao" })
+    });
+
+    fecharModal();
+    alert("Sua escolha foi registrada: " + (vaiDormir ? "vai dormir 😴" : "não vai dormir 👍"));
+  }
+
+  function abrirModal() {
+    document.getElementById("modal").classList.add("show");
+  }
+
+  function fecharModal() {
+    document.getElementById("modal").classList.remove("show");
+  }
+</script>
